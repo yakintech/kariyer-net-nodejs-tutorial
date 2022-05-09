@@ -1,0 +1,30 @@
+Nodejs Modules
+
+Include Modules => Nodejs yüklendikten sonra PC de bulunan modüller
+
+NPM Üzerinden Yüklenen Paketler(Modüller) => Paket yöneticisi olan NPM den ( yani dışarıdan yüklediğimiz paketler)
+
+Custom Modules => Kendi kütüphanelerim, metotlarım, objelerim vb. ()
+
+Nodejs Projesine Başlarken
+npm init --y ile package.json dosyası oluşturulur.
+
+
+Dependencies 
+
+* Projeye özel bağımlılıklar. npm install komutuyla yüklediğiniz tüm paketler proje içerisine 
+yüklenir ve proje o pakete bağımlı olur.
+
+
+Geliştirme ortamının bağımlılıkları
+npm install --dev komutuyla yüklenen bu paketler SADECE geliştirme ortamına özeldir.
+
+
+
+Global bağımlılıklar. npm install --g komutuyla yüklenen bu paketler pc içerisine
+import olur ve her nodejs projesinde kullanılır. PAKETLER package.json içerisinde DEĞİL
+bilgisayarda olduğu için kişiye özeldir.
+
+
+
+
