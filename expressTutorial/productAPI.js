@@ -1,6 +1,9 @@
 const { products } = require("./products");
 const express = require('express');
 var bodyParser = require('body-parser')
+const path = require('path');
+
+
 
 const app = express();
 const port = 8080;
@@ -30,6 +33,15 @@ app.post('/products', (req,res) => {
     res.status(201).json(newProduct)
 })
 
+
+app.get('/productPage', (req,res) => {
+    res.sendFile(path.join(__dirname, '/productMainPage.html'));
+})
+
+app.get('/productImage', (req,res) => {
+    res.sendFile(path.join(__dirname, '/basarisizlik.jpg'));
+
+})
 
 app.delete("/products/:id", (req,res) => {
 
