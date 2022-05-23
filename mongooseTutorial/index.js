@@ -3,16 +3,85 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const categorySchema = new Schema({
+    name: String,
+    cNumber: Number
+})
+
 const productSchema = new Schema({
     title: String,
     description: String,
     addDate: { type: Date, default: Date.now },
     isDeleted: { type: Boolean, default: false },
     points: [],
-    price: Number
+    price: Number,
+    category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    //category2: { type: categorySchema },
+    // category : {}
+    //categoryId : Schema.Types.ObjectId
 });
 
+
+
+const webUserSchema = {
+    name: String,
+    surname: String,
+    addresses: [{
+        name: String,
+        city: String
+    }]
+}
+
+
 const Product = mongoose.model('Product', productSchema);
+const WebUser = mongoose.model('WebUser', webUserSchema);
+const Category = mongoose.model('Category', categorySchema);
+
+
+
+    // var product = new Product({
+    //     title:'Deve Taban ı',
+    //     description: 'Haftada bir su ister...',
+    //     price: 15,
+    //     category2: {
+    //         name: 'Ev Bitkisi',
+    //         cNumber: 9
+    //     }
+    // })
+
+    // product.save((errP, docP) => {
+    //     console.log('NEW PRODUCT', docP);
+    // })
+
+
+//Category insert..
+// var category = new Category({
+//     name: 'Electronic',
+//     cNumber: 554433
+// })
+
+
+// category.save((err, doc) => {
+
+//     var product = new Product({
+//         title:'Vestel',
+//         description: 'Vestel product..',
+//         price: 55,
+//         category: doc._id
+//     })
+
+//     product.save((errP, docP) => {
+//         console.log('NEW PRODUCT', docP);
+//     })
+
+// })
+
+
+Product.findById('628b8aa1accbbcf1efe16784')
+    .populate("category").exec((err, doc) => {
+        console.log('Data: ', doc.category.name);
+    })
+
 
 
 //Product insert işlemi...
@@ -164,9 +233,9 @@ const Product = mongoose.model('Product', productSchema);
 // })
 
 //ilk 5 ürünü atladı ve kalan ürünleri yazdırdı.
-Product.find().skip(5).exec((err,docs) => {
-    console.log('Products ' , docs);
-})
+// Product.find().skip(5).exec((err, docs) => {
+//     console.log('Products ', docs);
+// })
 
 
 mongoose.connect("mongodb+srv://cagatay:nxpMvXNUuYA5evrY@cluster0.yk1lz.mongodb.net/techcareerdb?retryWrites=true&w=majority");
