@@ -1,14 +1,16 @@
 const express = require('express');
 const connect = require('./config/db');
-var bodyParser = require('body-parser')
-const { body, validationResult } = require('express-validator');
-
-
-const { categoryController } = require('./controllers/categoryController');
-const { categoryValidations } = require('./validation/category');
+var bodyParser = require('body-parser');
+const categoryRouter = require('./routes/categoryRoutes');
 const app = express();
+const http = require('http');
+var cors = require('cors')
+const server = http.createServer(app);
 const port = 8080;
+const { Server } = require("socket.io");
+const io = new Server(server, {cors: {origin: "*"}});
 
+app.use(cors())
 
 
 connect.connectDb();
@@ -19,15 +21,23 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
-app.get('/api/categories', categoryController.getAll);
-app.get('/api/categories/:id', categoryController.getById);
-app.post('/api/categories', categoryValidations.addCategory, categoryController.add);
-app.put('/api/categories', categoryValidations.updateCategory, categoryController.update);
-app.delete('/api/categories/:id', categoryController.delete);
+app.use('/api/categories', categoryRouter)
 
 
 
-app.listen(8080, function () {
+io.on('connection', (socket) => {
+    console.log('User connected...');
+
+    socket.on('chatMessage', (data) => {
+
+       io.emit('serverMessage', data)
+
+    })
+
+})
+
+
+
+server.listen(8080, function () {
     console.log(`Example app listening on port ${port}`)
 })

@@ -1,6 +1,5 @@
 
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
@@ -20,7 +19,6 @@ const productSchema = new Schema({
     // category : {}
     //categoryId : Schema.Types.ObjectId
 });
-
 
 
 const webUserSchema = {
