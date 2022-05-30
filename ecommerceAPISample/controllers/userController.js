@@ -50,7 +50,7 @@ const userController = {
     },
     getAll: (req, res) => {
 
-        User.find().exec((err, docs) => {
+        User.find().select('email').exec((err, docs) => {
 
             if (!err) {
                 res.json(docs);
