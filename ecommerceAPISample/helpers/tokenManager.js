@@ -3,7 +3,6 @@ const { privateJWTKey } = require("../config/environments");
 
 const tokenManager = {
     control: (req, res, next) => {
-        console.log('REQUEST', req);
         try {
             const bearerHeader = req.headers["authorization"];
             if (bearerHeader) {
