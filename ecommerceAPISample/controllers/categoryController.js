@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const { Category } = require("../models/categoryModel")
-
+var jwt = require('jsonwebtoken');
+const { privateJWTKey } = require("../config/environments");
 
 
 const categoryController = {
@@ -72,11 +73,11 @@ const categoryController = {
         let id = req.body._id;
         console.log(req.body);
 
-        Category.findByIdAndUpdate(id, {name: req.body.name, cNumber: req.body.cNumber}).exec((err,doc) => {
-            if(!err){
+        Category.findByIdAndUpdate(id, { name: req.body.name, cNumber: req.body.cNumber }).exec((err, doc) => {
+            if (!err) {
                 res.json(doc);
             }
-            else{
+            else {
                 res.status(500).json(err);
             }
         })
@@ -87,17 +88,17 @@ const categoryController = {
 
         if (id) {
 
-            Category.findByIdAndRemove(id).exec((err,doc) => {
-                if(!err){
-                    if(doc){
+            Category.findByIdAndRemove(id).exec((err, doc) => {
+                if (!err) {
+                    if (doc) {
                         res.json(doc)
                     }
-                    else{
-                        res.status(404).json({'message':'Böyle bir döküman bulunamadı!'})
+                    else {
+                        res.status(404).json({ 'message': 'Böyle bir döküman bulunamadı!' })
                     }
-                   
+
                 }
-                else{
+                else {
                     res.status(500).json(err);
                 }
             })
@@ -106,7 +107,7 @@ const categoryController = {
         else {
             res.status(422).json({ msg: 'Lütfen id parametresini gönderiniz..' })
         }
-   
+
     }
 }
 

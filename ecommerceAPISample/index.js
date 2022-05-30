@@ -2,6 +2,8 @@ const express = require('express');
 const connect = require('./config/db');
 var bodyParser = require('body-parser');
 const categoryRouter = require('./routes/categoryRoutes');
+const userRouter = require('./routes/userRoutes');
+
 const mailRoutes = require('./routes/mailRoutes');
 const app = express();
 const http = require('http');
@@ -23,9 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
 app.use('/api/categories', categoryRouter)
 app.use('/api/email', mailRoutes)
-
+app.use('/api/users', userRouter)
 
 
 io.on('connection', (socket) => {
