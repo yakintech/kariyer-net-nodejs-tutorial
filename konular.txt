@@ -1,4 +1,3 @@
 * pm2
-* socket
-* mongoose select
-* nodemailer
+* nodejs deploy
+* env file
